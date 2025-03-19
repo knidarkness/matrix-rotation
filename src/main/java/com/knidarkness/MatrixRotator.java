@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class MatrixRotator {
     public void matrixRotation(List<List<Integer>> matrix, int r) {
-        var rotatedMatrix = rotateMatrix(matrix, r);
+        List<List<Integer>> rotatedMatrix = rotateMatrix(matrix, r);
         logMatrix(rotatedMatrix);
     }
 
@@ -22,25 +22,25 @@ public class MatrixRotator {
 
     public List<Integer> getMatrixRing(List<List<Integer>> matrix, int ring) {
         List<Integer> result = new ArrayList<>();
-        int rows = matrix.size();
-        int cols = matrix.get(0).size();
+        int matrixHeight = matrix.size();
+        int matrixWidth = matrix.get(0).size();
 
         // Top row: from column 'ring' to column 'cols - ring - 1'
-        for (int j = ring; j < cols - ring; j++) {
+        for (int j = ring; j < matrixWidth - ring; j++) {
             result.add(matrix.get(ring).get(j));
         }
         // Right column: for rows from 'ring+1' to 'rows - ring - 2'
-        for (int i = ring + 1; i < rows - 1 - ring; i++) {
-            result.add(matrix.get(i).get(cols - 1 - ring));
+        for (int i = ring + 1; i < matrixHeight - 1 - ring; i++) {
+            result.add(matrix.get(i).get(matrixWidth - 1 - ring));
         }
         // Bottom row (if not the same as top row): reversed order
-        if (rows - 1 - ring != ring) {
-            for (int j = cols - 1 - ring; j >= ring; j--) {
-                result.add(matrix.get(rows - 1 - ring).get(j));
+        if (matrixHeight - 1 - ring != ring) {
+            for (int j = matrixWidth - 1 - ring; j >= ring; j--) {
+                result.add(matrix.get(matrixHeight - 1 - ring).get(j));
             }
         }
         // Left column: for rows from 'rows - 2 - ring' down to 'ring+1'
-        for (int i = rows - 2 - ring; i > ring; i--) {
+        for (int i = matrixHeight - 2 - ring; i > ring; i--) {
             result.add(matrix.get(i).get(ring));
         }
         return result;
@@ -61,11 +61,11 @@ public class MatrixRotator {
         List<List<Integer>> matrix = IntStream
             .range(0, y)
             .<List<Integer>>mapToObj(
-                    i -> new ArrayList<>(Collections.nCopies(x, 0))
+                    rindIndex -> new ArrayList<>(Collections.nCopies(x, 0))
             ).collect(Collectors.toList());
 
-        for (int i = 0; i < rings.size(); i++) {
-            assembleRing(matrix, rings.get(i), i);
+        for (int ring = 0; ring < rings.size(); ring++) {
+            assembleRing(matrix, rings.get(ring), ring);
         }
         return matrix;
     }
