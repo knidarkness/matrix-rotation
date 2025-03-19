@@ -17,9 +17,9 @@ Some of the important constraints are:
 
 The goal of the task is to rotate a given matrix counter-clockwise.
 
-Some of the fundamental assumptions are:
+### Assumptions
 
-- Maximal amount of steps a matrix can be rotated before it becomes the initial matrix equals `(m + (n - 1)) * 2`, which is always less than `10^9`
+- Maximum amount of steps a matrix can be rotated before it becomes the initial matrix equals `(m + (n - 1)) * 2`, which is always less than `10^9`
 - Java integer can hold a value of up to 2^31, so we don't need to use any Long/BigInt datatypes
 - The HackerRank implementation template suggests using `List<List<Integer>>` as a structure to store a matrix. While `int[][]` would be marginally faster, I believe its importance is negligible on our data volume of `<= 10 000` elements.
 - It is guaranteed that we can rotate matrix and all elements will move because of `min(m, n) % 2 = 0` constraint -- there will not be a static part middle row or column which is not affected by rotation.
@@ -28,7 +28,7 @@ With these assumptions in mind, let's take a look at approach we can use to impl
 
 On one hand, we could implement some sort of "brute-force simulation" -- create a new matrix, and then for each element of the matrix try to simulate the final position by "rotating" shifting element and changing the direction of shift when we encounter a "wall" (i.e. outer boundary of matrix or row/column). However, implementing this approach would likely be quite cumbersome, hard to read, and computationally not very effective.
 
-Instead, let's treat our matrix not as collection of rows (or columns), but rather as a set of nested rings (or layers), each defined by the shortest distance to the edge of matrix (see picture below). In this case, we rotate the matrix by rotating each individual ring. Extra (albeit small) benefit is that we can remove extra rotations (i.e. further than "full circle") on per-ring basis - hence further saving some time. And the rotation itself becomes a fairly trivial list/array shift. The more specific steps are:
+Instead, we treat our matrix not as collection of rows (or columns), but rather as a set of nested rings (or layers), each defined by the shortest distance to the matrix's edge (see picture below). In this case, we rotate the matrix by rotating each individual ring. By rotating each ring individually, we not only simplify the rotation process into a straightforward list/array shift, but we can also optimize it by reducing extra rotations (i.e., rotations beyond a full cycle) on a per-ring basis. The more specific steps are:
 
 - Split matrix into the nested rings
 - For each ring define needed shift based on `r % len(ring)`
