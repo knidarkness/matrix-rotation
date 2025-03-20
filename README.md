@@ -21,7 +21,7 @@ The goal of the task is to rotate a given matrix counter-clockwise.
 
 - Maximum amount of steps a matrix can be rotated before it becomes the initial matrix equals `(m + (n - 1)) * 2`, which is always less than `10^9`
 - Java integer can hold a value of up to 2^31, so we don't need to use any Long/BigInt datatypes
-- The HackerRank implementation template suggests using `List<List<Integer>>` as a structure to store a matrix. While `int[][]` would be marginally faster, I believe its importance is negligible on our data volume of `<= 10 000` elements.
+- The HackerRank implementation template suggests using `List<List<Integer>>` as a structure to store a matrix. ~~While `int[][]` would be marginally faster, I believe its importance is negligible on our data volume of `<= 10 000` elements.~~ After some though, I changed the matrix to be int[][] since they are known-size and have no reason to be lists. Individual rings though are kept as Lists for a cheap "shift" operation.
 - It is guaranteed that we can rotate matrix and all elements will move because of `min(m, n) % 2 = 0` constraint -- there will not be a static part middle row or column which is not affected by rotation.
 
 With these assumptions in mind, let's take a look at approach we can use to implement the rotation.
