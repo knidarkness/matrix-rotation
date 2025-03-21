@@ -40,6 +40,9 @@ Below is the picture illustrating this flow if we need to rotate a matrix by 1 s
 ![Rotation example](matrix-rotation.jpg)
 
 > ### **Change**
+> 
+> Implementation visible via [a pull request](https://github.com/knidarkness/matrix-rotation/pull/2)
+> 
 > Initial implementation was naively following they laid out approach by explicitly storing each individual ring, shifting it and "assembling" matrix back. However, after some thought I did not like the fact that extra copying was done into the ring-structures & the whole "into ring -> shift -> into matrix" process was explicit. As an experiment, I have then updated the algorithm to use this ring-based logic while without creating explicit ring data-structures.
 >
 > The complexity is still linear related to total amount of input "cells" (i.e. `O(n*m)`), but with this approach we don't need to copy elements in "extra steps".
