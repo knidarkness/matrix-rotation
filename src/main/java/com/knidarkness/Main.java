@@ -3,12 +3,8 @@ package com.knidarkness;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -30,12 +26,11 @@ public class Main {
                 throw new RuntimeException(ex);
             }
         });
+        bufferedReader.close();
 
         MatrixRotator mr = new MatrixRotator();
         int[][] rotatedMatrix = mr.rotateMatrix(matrixArr, r);
         mr.logMatrix(rotatedMatrix);
-//        mr.logMatrix(matrixArr);
 
-        bufferedReader.close();
     }
 }
