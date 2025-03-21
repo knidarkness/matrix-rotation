@@ -17,25 +17,24 @@ public class Main {
         String[] inputConfig = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
         int m = Integer.parseInt(inputConfig[0]);
+        int n = Integer.parseInt(inputConfig[1]);
         int r = Integer.parseInt(inputConfig[2]);
 
-        List<List<Integer>> matrix = new ArrayList<>();
+        int[][] matrixArr = new int[m][n];
 
         IntStream.range(0, m).forEach(i -> {
             try {
-                matrix.add(
-                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                        .map(Integer::parseInt)
-                        .collect(toList())
-                );
+                String row = bufferedReader.readLine();
+                matrixArr[i] = Stream.of(row.split(" ")).mapToInt(Integer::parseInt).toArray();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
 
         MatrixRotator mr = new MatrixRotator();
-        List<List<Integer>> rotatedMatrix = mr.rotateMatrix(matrix, r);
+        int[][] rotatedMatrix = mr.rotateMatrix(matrixArr, r);
         mr.logMatrix(rotatedMatrix);
+//        mr.logMatrix(matrixArr);
 
         bufferedReader.close();
     }
