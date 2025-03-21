@@ -39,7 +39,17 @@ Below is the picture illustrating this flow if we need to rotate a matrix by 1 s
 
 ![Rotation example](matrix-rotation.jpg)
 
-As for the algorithmic complexity of this approach, we are looking at O(n^2) if `n = m = 300` (or (n x m) otherwise) and the extra memory needed grows linearly with the amount of elements of the matrix being rotated. 
+> ### **Change**
+>
+> Implementation visible via [a pull request](https://github.com/knidarkness/matrix-rotation/pull/2)
+>
+> Initial implementation was naively following they laid out approach by explicitly storing each individual ring, shifting it and "assembling" matrix back. However, after some thought I did not like the fact that extra copying was done into the ring-structures & the whole "into ring -> shift -> into matrix" process was explicit. As an experiment, I have then updated the algorithm to use this ring-based logic while without creating explicit ring data-structures.
+>
+> The complexity is still linear related to total amount of input "cells" (i.e. `O(n*m)`), but with this approach we don't need to copy elements in "extra steps".
+>
+> All-in-all, while here we save some extra memory & reduce the "constant multiplier" in our `O(n*m)`, unless the performance is absolutely crucial -- I think explicit way is more readable and maintainable.
+
+As for the algorithmic complexity of this approach, we are looking at O(n^2) if `n = m = 300` (or (n x m) otherwise) -- in fact this is linear w.r.t. amount of individual matrix cells we rotate. The extra memory needed grows linearly with the amount of elements of the matrix being rotated as well. 
 
 ## Done
 
